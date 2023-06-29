@@ -6,7 +6,7 @@ import empleadosRoutes from "./routes/empleados.routes.js";
 
 const app = express();
 
-app.set("port", 5000);
+app.set("port", 5001);
 app.use(express.json());
 
 app.use("/api/categorias",categoriasRoutes);

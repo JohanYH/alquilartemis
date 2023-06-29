@@ -4,6 +4,9 @@ import { methodsHTTPS as constructoraController } from "../controllers/construct
 const router = Router();
 
 router.get("/", constructoraController.getConstructora);
-router.post("/", constructoraController.addConstructora)
+router.post("/", constructoraController.addConstructora);
+router.get("/:id", constructoraController.getConstructoras);
+router.delete("/:id",constructoraController.deleteConstructoras);
+router.put("/:id", constructoraController.updateConstructora);
 
 export default router;

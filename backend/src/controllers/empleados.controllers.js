@@ -11,6 +11,18 @@ const getEmpleado = async (req, res) =>{
     }
 }
 
+const getEmpleados = async (req, res) =>{
+    try {
+        const {id} = req.params;
+        const empleado = await getConectar();
+        const result = await empleado.query("SELECT id_empleado, nombre_empleado, email_empleado, celular_empleado, password_empleado FROM empleados WHERE id_empleado = ?",id);
+        res.json(result);
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+}
+
 const addEmpleados = async (req , res) =>{
     try {
         const {nombre_empleado,email_empleado,celular_empleado,password_empleado} = req.body;
@@ -24,7 +36,36 @@ const addEmpleados = async (req , res) =>{
     }
 }
 
+const deleteEmpleado = async (req, res) =>{
+    try {
+        const {id} = req.params;
+        const empleado = await getConectar();
+        const result = await empleado.query("DELETE FROM empleados WHERE id_empleado =?", id);
+        res.json(result);
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+}
+
+const updateEmpleado = async (req, res) =>{
+    try {
+        const {id} = req.params;
+        const {nombre_empleado,email_empleado,celular_empleado,password_empleado} = req.body;
+        const employe = {nombre_empleado, email_empleado, celular_empleado, password_empleado};
+        const empleado = await getConectar();
+        const result = await empleado.query("UPDATE empleados SET ? WHERE id_empleado = ?", [employe,id]);
+        res.json(result);
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+}
+
 export const methodsHTTPS  = {
     getEmpleado,
-    addEmpleados
+    addEmpleados,
+    getEmpleados,
+    deleteEmpleado,
+    updateEmpleado
 }
